@@ -44,3 +44,33 @@ end
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+gem 'cancan'
+gem 'devise'
+gem 'figaro'
+gem 'haml-rails'
+gem 'protected_attributes'
+gem 'rolify'
+
+group :assets do
+  gem 'compass-rails'
+  gem 'zurb-foundation'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller', :platforms=>[:mri_19, :rbx]
+  gem 'html2haml'
+  gem 'quiet_assets'
+end
+
+group :development, :test do
+  gem 'factory_girl_rails'
+end
+
+group :test do
+  gem 'capybara'
+  gem 'minitest-spec-rails'
+  gem 'minitest-wscolor'
+end
+
