@@ -7,6 +7,6 @@ Myapp::Application.routes.draw do
   get 'disclaimer' => 'home#disclaimer', :as => :disclaimer
 
   resources :posts, :only => [:show] do
-  	resources :comments, :only => [:create, :destroy, :update]
+  	resources :comments, :only => [:create, :destroy, :update, :edit]
   end
 end

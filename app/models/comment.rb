@@ -12,8 +12,8 @@ class Comment < ActiveRecord::Base
   private
 
   def raw_body_length
-  	raw_body = Sanitize.clean(body, :elements => []).strip!
-  	if raw_body.length < 1
+  	raw_body = Sanitize.clean(body, :elements => []).strip
+  	if raw_body.nil? or raw_body.length < 1
   		errors.add(:body, "Не может быть пустым")
   	end
   end

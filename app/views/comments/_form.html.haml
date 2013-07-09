@@ -5,6 +5,10 @@
         .alert-box
           = msg
           %a.close ×
-= form_for [@post, @comment] do |f|
+= form_for [@post, @comment], :remote => true do |f|
   = f.text_area :body, :class => "redactor"
-  = submit_tag "Добавить комментарий", :class => "button right", :style => "margin-top: 20px"
+  - if @comment.id
+    = submit_tag "Сохранить", :class => "button right", :style => "margin-top: 20px"
+  - else
+    = submit_tag "Добавить комментарий", :class => "button right", :style => "margin-top: 20px"
+    

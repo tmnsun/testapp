@@ -1,4 +1,4 @@
-.row{:id => "comment-#{comment.id}"}
+.row.comment{:id => "comment-#{comment.id}"}
   .large-12.columns
     - if comment.created_at
       = Russian::strftime(comment.created_at, "%d %B %H:%M")
@@ -7,9 +7,8 @@
     - else
       = "Анонимный комментарий"
     - if can? :delete, comment 
-      = link_to "удалить", [@post, comment], :confirm => "Вы уверены?", :method => :delete
+      = link_to "удалить", [@post, comment], :confirm => "Вы уверены?", :method => :delete, :remote => true
     - if can? :edit, comment
-      = link_to_function "редактировать", "edit_comment(#{comment.id})", :id => "comment-edit-#{comment.id}"
-      = link_to_function "сохранить", "save_comment(#{comment.id})", :style => "display:none", :id => "comment-save-#{comment.id}"
+      = link_to "редактировать", edit_post_comment_path(@post, comment), :remote => true
     .comment-container{:id => "comment-container-#{comment.id}"}
       =raw comment.body

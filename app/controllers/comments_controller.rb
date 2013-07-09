@@ -19,17 +19,20 @@ class CommentsController < ApplicationController
     end
   end
 
-  def update
+  def edit
     @comment = post.comments.find(params[:id])
     authorize! :update, @comment
     respond_to do |format|
-      if @comment.update_attributes(params[:comment])
-        format.html { redirect_to(admin_comments_path, :notice => 'Comment was successfully updated.') }
-        format.js
-      else
-        format.html { render "posts/show" }
-        format.js
-      end
+      format.js
+    end
+  end
+
+  def update
+    @comment = post.comments.find(params[:id])
+    authorize! :update, @comment
+    @comment.update_attributes(params[:comment])
+    respond_to do |format|
+      format.js
     end
   end
 
