@@ -15,6 +15,7 @@ group :doc do
 end
 
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'cancan'
 gem 'devise', github: "plataformatec/devise"
 gem 'figaro'
