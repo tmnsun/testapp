@@ -1,0 +1,23 @@
+= link_to "Вернуться на главную", root_path
+
+%h2
+  = link_to @post.title, @post
+=raw @post.body
+
+%h3 Комментарии
+
+- if @post.comments.count > 0
+  = render :partial => 'comments/comment', :collection => @post.comments
+- else
+  %p
+    Комментарии к записи отсутствуют.
+
+- if user_signed_in?
+  %hr
+  %h5 Добавить новый комментарий
+  = render 'comments/form'
+- else
+  %p
+    Для того, чтобы написать комментарий, вам необходимо #{link_to "авторизоваться", new_user_session_path}
+
+

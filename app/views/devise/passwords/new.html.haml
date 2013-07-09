@@ -1,0 +1,15 @@
+%h2 Забыли пароль?
+= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
+  - unless resource.errors.full_messages.nil?
+    .row
+      .large-12.columns
+    - resource.errors.full_messages.each do |message|
+      .alert-box
+        = message
+        %a.close ×
+  %fieldset
+    = f.label :email
+    = f.email_field :email
+
+  = f.submit "Отправить мне инструкции по смене пароля", :class => "button"
+= render "devise/shared/links"

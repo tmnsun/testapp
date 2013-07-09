@@ -1,17 +1,26 @@
-= link_to "Myapp", root_path, :class => 'brand'
-%ul.nav
-  - if user_signed_in?
-    %li
-      = link_to 'Logout', destroy_user_session_path, :method=>'delete'
-  - else
-    %li
-      = link_to 'Login', new_user_session_path
-  - if user_signed_in?
-    %li
-      = link_to 'Edit account', edit_user_registration_path
-    - if current_user.has_role? :admin
+%nav.top-bar
+  %ul.title-area
+    %li.name
+      %h1
+        = link_to "Тестовое приложение", root_path
+
+  %sextion.top-bar-section
+    %ul.left
+      %li.divider
+      %li.active
+        = link_to "Главная", root_path
+      %li.divider
       %li
-        = link_to 'Admin', users_path
-  - else
-    %li
-      = link_to 'Sign up', new_user_registration_path
+        = link_to "Дисклеймер", "/disclaimer"
+      %li.divider
+    %ul.right
+      %li.divider
+      - if user_signed_in?
+        %li
+          = link_to 'Выход', destroy_user_session_path, :method=>'delete'
+      - else
+        %li
+          = link_to 'Вход', new_user_session_path
+        %li.divider
+        %li
+          = link_to 'Регистрация', new_user_registration_path     

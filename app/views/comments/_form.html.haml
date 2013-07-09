@@ -1,0 +1,10 @@
+- if @comment.errors.any?
+  .row
+    .large-12.columns
+      -@comment.errors.full_messages.each do |msg|
+        .alert-box
+          = msg
+          %a.close ×
+= form_for [@post, @comment] do |f|
+  = f.text_area :body, :class => "redactor"
+  = submit_tag "Добавить комментарий", :class => "button right", :style => "margin-top: 20px"

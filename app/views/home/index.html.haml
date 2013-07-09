@@ -1,4 +1,6 @@
-%h3 Home
-- @users.each do |user|
-  %p
-    User: #{link_to user.name, user}
+%h1 Посты
+- @posts.each do |post|
+  %h3
+    = link_to post.title, post
+  =raw post.announce
+  = link_to "Продолжить чтение", post

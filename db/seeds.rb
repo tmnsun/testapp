@@ -1,18 +1,39 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
-#
-# Examples:
-#
-#   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-#   Mayor.create(name: 'Emanuel', city: cities.first)
-# Environment variables (ENV['...']) are set in the file config/application.yml.
-# See http://railsapps.github.io/rails-environment-variables.html
+#encoding: utf-8
+
 puts 'ROLES'
 YAML.load(ENV['ROLES']).each do |role|
   Role.find_or_create_by_name(role, :without_protection => true)
   puts 'role: ' << role
 end
+
 puts 'DEFAULT USERS'
-user = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+admin = User.find_or_create_by_email :name => ENV['ADMIN_NAME'].dup, :email => ENV['ADMIN_EMAIL'].dup, :password => ENV['ADMIN_PASSWORD'].dup, :password_confirmation => ENV['ADMIN_PASSWORD'].dup
+puts 'user: ' << admin.name
+admin.add_role :admin
+user = User.find_or_create_by_email :name => ENV['USER_NAME'].dup, :email => ENV['USER_EMAIL'].dup, :password => ENV['USER_PASSWORD'].dup, :password_confirmation => ENV['USER_PASSWORD'].dup
 puts 'user: ' << user.name
-user.add_role :admin
+
+puts "LOAD SAMPLE POST"
+Post.delete_all
+Post.find_or_create_by_title(
+	:title => "Как выглядит полезное приложение для Google Glass",
+	:announce => """
+<p>Согласно последним исследованиям, опубликованным в журнале Resuscitation Urban, только одна пятая часть людей (не профессиональных врачей) знакомы с основами проведения неотложных медицинских мероприятий, в частности, с такой жизненно необходимой вещью как искусственное дыхание (в оригинале Hands-Only CPR (Cardio Pulmonary Resuscitation) — ручная сердечно-лёгочная реанимация).</p>
+<p style=\"text-align:center;\"><img src=\"http://habrastorage.org/storage2/806/124/164/80612416421eb2075720493ee82185e0.jpg\"></p>
+<p>Практикующий кардиолог Кристиан Ассад (вероятно, большой любитель гаджетов) совместно с разработчиками Крисом Вукином (Chris Vukin) и Томасом Шварцем (Thomas Schwartz) создали приложение для Google Glass под названием CPRGlass, которое должно существенно облегчить задачу тем, кому придётся столкнуться с обмороком и остановкой сердца без присутствия врачей и, таким образом, необходимостью проводить реанимацию прямо на месте.</p>
+	""",
+	:body => """
+<p>Согласно последним исследованиям, опубликованным в журнале <a href=\"http://www.ncbi.nlm.nih.gov/pubmed/23619739\">Resuscitation Urban</a>, только одна пятая часть людей (не профессиональных врачей) знакомы с основами проведения неотложных медицинских мероприятий, в частности, с такой жизненно необходимой вещью как искусственное дыхание (<i>в оригинале</i> Hands-Only CPR (Cardio Pulmonary Resuscitation) — ручная сердечно-лёгочная реанимация).</p>
+<p style=\"text-align:center;\"><img src=\"http://habrastorage.org/storage2/806/124/164/80612416421eb2075720493ee82185e0.jpg\"></p>
+<p>Практикующий кардиолог <a href=\"https://twitter.com/Christianassad\">Кристиан Ассад</a> (вероятно, большой любитель гаджетов) совместно с разработчиками Крисом Вукином (Chris Vukin) и Томасом Шварцем (Thomas Schwartz) создали приложение для Google Glass под названием <b>CPRGlass</b>, которое должно существенно облегчить задачу тем, кому придётся столкнуться с обмороком и остановкой сердца без присутствия врачей и, таким образом, необходимостью проводить реанимацию прямо на месте.<br></p>
+<p>Работает приложение следующим образом.</p>
+<p>Если владелец очков стал свидетелем обморока, то для запуска программы следует отдать голосовую команду \"<b>OK GLASS, CPRGLASS</b>\", что вызовет демонстрацию на дисплее очков инструкций, по проведению ABC (Assess Airway Breathing and Circulation — оценка возможности дыхания и кровообращения) — согласно медицинскому протоколу проведения реанимационных мероприятий именно отсутствие самостоятельного дыхания и кровообращения (а также сознания), является прямым показанием к проведению CPR.</p>
+<p>Если выяснится, что у человека без сознания нет пульса (рекомендуется проверять сонную артерию, так как там ошибиться очень сложно), то очки начинают действовать следующим образом:</p>
+<ul>
+<li> Включается мелодия Staying Alive — американской кардиологической ассоциацией было создано видео с говорящим названием Staying alive (посмотреть можно <a href=\"http://www.youtube.com/watch?v=n5hP4DIBCEE\">здесь</a>), музыкальный ритм которого соответствует ста ударам в минуту — именно такая частота нажатий на грудь пациента во время реанимации рекомендуется как наиболее подходящая для такого рода мероприятий.</li>
+<li> Каждое движение рук (и головы соответственно) того, кто оказывает помощь, оценивается при помощи встроенного в Glass гироскопа, определяя достаточность нажатия на грудную клетку пациента.</li>
+<li> Аналогично отслеживается время и количество нажатий.</li>
+<li> На основе GPS (со смартфона, который связан с очками Glass) определяется местоположение инцидента и осуществляется связь при помощи текстового сообщения с ближайшей больницей, оборудованной дефибрилляторами с информацией и вызов скорой — звонком на 911.</li>
+</ul>
+<p>На данный момент CPRGlass ещё ожидают усовершенствование на основе предложенной в MIT <a href=\"http://www.wired.co.uk/news/archive/2012-07/25/mit-algorithm\">технологии</a>, которая позволяет с высокой точностью определять факт наличия пульса по видеоизображению.</p>
+	""")
