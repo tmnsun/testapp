@@ -3,7 +3,7 @@
     - if comment.created_at
       = Russian::strftime(comment.created_at, "%d %B %H:%M")
     - unless comment.user.nil?
-      = comment.user.name
+      = comment.user.email
     - else
       = "Анонимный комментарий"
     - if can? :delete, comment 
