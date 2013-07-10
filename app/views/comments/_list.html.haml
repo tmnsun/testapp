@@ -1,0 +1,6 @@
+#comments-list-container
+- if @post.comments.count > 0
+  = render :partial => 'comments/comment', :collection => @post.comments
+- else
+  %p{:id => "comments-not-found"}
+    Комментарии к записи отсутствуют.

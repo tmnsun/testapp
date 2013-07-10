@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
   def show
   	@post = Post.find_by_url!(params[:url])
-  	@comment = @post.comments.build(params[:comment])
+  	@comment = Comment.new({:post_id => @post.id})
   end
 end

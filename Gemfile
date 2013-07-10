@@ -14,8 +14,6 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-gem 'carrierwave'
-gem 'mini_magick'
 gem 'cancan'
 gem 'devise', github: "plataformatec/devise"
 gem 'figaro'
@@ -26,7 +24,6 @@ gem 'stringex'
 gem 'compass-rails', github: "milgner/compass-rails", branch: "rails4"
 gem 'zurb-foundation'
 gem 'russian'
-gem 'redactor-rails'
 gem 'sanitize'
 
 group :development do

@@ -1,1 +1,2 @@
 $('.comment:last').after('<%= escape_javascript(render(:partial =>  'comments/comment', locals: {comment: @comment})) %>');
+$('#new_comment textarea').redactor('set', '');

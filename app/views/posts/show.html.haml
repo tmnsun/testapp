@@ -6,11 +6,7 @@
 
 %h3 Комментарии
 
-- if @post.comments.count > 0
-  = render :partial => 'comments/comment', :collection => @post.comments
-- else
-  %p
-    Комментарии к записи отсутствуют.
+= render "comments/list"
 
 - if user_signed_in?
   %hr

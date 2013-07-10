@@ -1,5 +1,4 @@
 Myapp::Application.routes.draw do
-  mount RedactorRails::Engine => '/redactor_rails'
   get "posts/show"
   root :to => "home#index"
   devise_for :users
