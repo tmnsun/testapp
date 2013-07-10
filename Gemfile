@@ -25,6 +25,7 @@ gem 'compass-rails', github: "milgner/compass-rails", branch: "rails4"
 gem 'zurb-foundation'
 gem 'russian'
 gem 'sanitize'
+gem 'rails_12factor'
 
 group :development do
   gem 'better_errors'
